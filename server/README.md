@@ -1,0 +1,1 @@
+In this project, I will be creating a blog site that uses React for the front end and Express connected to MongoDB for the backend. I will be utilizing the Mongoose library in order to better retrieve information from MongoDb.
