@@ -1,7 +1,6 @@
 import { Grid, } from '@material-ui/core'
 import React, {useState} from 'react'
 import BlogCards from '../components/BlogCards'
-import Header from '../components/Header'
 
 export default function Homepage() {
 
@@ -27,8 +26,7 @@ export default function Homepage() {
     )
 
     return (
-        <div>
-            <Header />
+        <div>    
             <Grid container spacing={3}>
                 <Grid item xs={12} style={{textAlign: 'center'}}>
                 <img alt="Dark cityscape of unknown asian city" src="https://images.unsplash.com/photo-1616866236720-7a45771084ed?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2689&q=80" width="99%"/>
