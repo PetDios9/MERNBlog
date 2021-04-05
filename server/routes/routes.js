@@ -11,4 +11,9 @@ router.get('/', (req,res)=> {
         .then(blogs=> res.json(blogs))
 })
 
+router.get('/create-blog', (req, res) => {
+    import ''
+    res.sendFile()
+})
+
 export default router
