@@ -29,12 +29,12 @@ export default function Header() {
                     <Link to="/" className={classes.links}>
                         <Typography variant="h6">
                           Home
-                        </Typography>  
+                        </Typography> 
+                    </Link> 
                     <Link to="/create" className={classes.links}>
                         <Typography variant="h6">
                             Post
                         </Typography>
-                    </Link>
                     </Link>
                 </Toolbar>
             </AppBar>
