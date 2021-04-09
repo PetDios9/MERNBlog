@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useFetch = (api) =>{
+const useGetData = (api) => {
     const [blogs, setBlogs] = useState([])
 
     useEffect(()=> {
@@ -17,4 +17,4 @@ const useFetch = (api) =>{
     return blogs
 }
 
-export default useFetch
+export default useGetData

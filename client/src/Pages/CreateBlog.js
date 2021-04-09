@@ -1,5 +1,7 @@
 import { Button, Grid, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
+import date from 'date-and-time'
+import { useHistory } from 'react-router'
 
 export default function CreateBlog() {
 
@@ -9,8 +11,12 @@ export default function CreateBlog() {
     const [titleErr, setTitleErr] = useState(false)
     const [snippetErr, setSnippetErr] = useState(false)
     const [bodyErr, setBodyErr] = useState(false)
+    const history= useHistory()
 
     const validate = () => {
+        setTitleErr(false)
+        setSnippetErr(false)
+        setBodyErr(false)
 
         if (title === '') {
             setTitleErr(true)
@@ -25,17 +31,32 @@ export default function CreateBlog() {
         }
     }
 
+    const clearFields = () => {
+        setTitle('')
+        setSnippet('')
+        setBody('')
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault()
         validate()
 
         if (title && snippet && body) {
-            console.log(title,snippet,body)
-            setTitle('')
-            setSnippet('')
-            setBody('')
-        }
+            const now = new Date()
+            
+            fetch('http://localhost:8000/blogs',{
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({
+                    date: date.format(now,'MMMM DD YYYY'),
+                    title,
+                    snippet,
+                    body
+                })
+            }).then(history.push('/'))
 
+            clearFields()
+        }
     }
 
     return (

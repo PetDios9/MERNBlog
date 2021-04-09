@@ -1,12 +1,12 @@
 import { Grid, } from '@material-ui/core'
 import React from 'react'
 import BlogCard from '../components/BlogCard'
-import useFetch from '../components/useFetch'
+import getData from '../utils/useGetData'
 
 export default function Homepage() {
 
     let blogs = []
-    blogs = useFetch('http://localhost:8000/blogs/')
+    blogs = getData('http://localhost:8000/blogs/')
     
     const renderedBlogs = blogs.map(blog => 
         <Grid item xs={3} key={blog.id}>

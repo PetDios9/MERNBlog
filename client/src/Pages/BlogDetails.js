@@ -1,13 +1,12 @@
 import { Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { useParams } from 'react-router'
-import useFetch from '../components/useFetch'
+import getData from '../utils/useGetData'
 
 export default function BlogDetails() {
     const {id} = useParams()
-    console.log(id)
     let blog = []
-    blog = useFetch(`http://localhost:8000/blogs/${id}`)
+    blog = getData(`http://localhost:8000/blogs/${id}`)
 
     return (
         <Grid container  spacing={4}>
