@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, makeStyles, Typography, } from '@material-ui/core'
 import {Link} from 'react-router-dom'
+import { Card, CardContent, CardHeader, makeStyles, Typography, } from '@material-ui/core'
+
 
 const useStyles = makeStyles(theme => {
     return{
@@ -14,22 +15,23 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function BlogCard({title, snippet, id}) {
+export default function BlogCard({title, snippet, id, date}) {
     const classes = useStyles()
     return(
-    <div>
-        <Link to={`/blogs/${id}`} className={classes.link}>
-            <Card variant="outlined" className={classes.card}>
-                <CardHeader 
-                    title={title}
-                    subheader="May 1st, 2021"
-                />
-                <CardContent>
-                    <Typography variant="body2">
-                        {snippet}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Link>
-    </div>
-    )}
+        <div>
+            <Link to={`/blogs/${id}`} className={classes.link}>
+                <Card variant="outlined" className={classes.card}>
+                    <CardHeader 
+                        title={title}
+                        subheader={date}
+                    />
+                    <CardContent>
+                        <Typography variant="body2">
+                            {snippet}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Link>
+        </div>
+    )
+}

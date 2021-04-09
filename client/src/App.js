@@ -1,6 +1,6 @@
+import React from 'react'
 import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
 import { grey, pink, } from '@material-ui/core/colors';
-import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Header from './components/Header';
 import BlogDetails from './Pages/BlogDetails';
@@ -22,7 +22,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => {
   return{
     root: {
-      padding: 20
+      padding: '2%'
     }
   }
 })

@@ -1,6 +1,7 @@
-import React from 'react'
 import {Link} from 'react-router-dom'
 import {AppBar, makeStyles, Toolbar, Typography} from '@material-ui/core'
+import HomeIcon from '@material-ui/icons/Home'
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -10,31 +11,26 @@ const useStyles = makeStyles(theme => {
         },
         links: {
             textDecoration: 'none',
-            color: '#FFFFFF',
-            flexGrow: 0
+            color: '#FFFFFF', 
+            paddingLeft: "2%"
         }
     }
 })
 
 export default function Header() {
     const classes = useStyles()
-
     return (
         <div className={classes.toolbar}>
             <AppBar color="primary" position='fixed'>
-                <Toolbar >
+                <Toolbar>
                     <Typography variant="h6" className={classes.welcome}>
                         Welcome to Peter's Blog
                     </Typography>
                     <Link to="/" className={classes.links}>
-                        <Typography variant="h6">
-                          Home
-                        </Typography> 
+                        <HomeIcon />
                     </Link> 
                     <Link to="/create" className={classes.links}>
-                        <Typography variant="h6">
-                            Post
-                        </Typography>
+                        <PostAddIcon />
                     </Link>
                 </Toolbar>
             </AppBar>
