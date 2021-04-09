@@ -7,6 +7,7 @@ export default function Homepage() {
 
     let blogs = []
     blogs = getData('http://localhost:8000/blogs/')
+   
     
     const renderedBlogs = blogs.map(blog => 
         <Grid item xs={3} key={blog.id}>

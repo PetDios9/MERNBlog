@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const useGetData = (api) => {
-    const [blogs, setBlogs] = useState([])
+    const [data, setData] = useState([])
 
     useEffect(()=> {
         fetch(api)
@@ -11,10 +11,10 @@ const useGetData = (api) => {
                 }
                 return res.json()
             })
-            .then(data => setBlogs(data))
+            .then(data => setData(data))
             .catch(err => console.log(err))
     },[api])
-    return blogs
+    return data
 }
 
 export default useGetData
