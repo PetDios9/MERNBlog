@@ -1,22 +1,28 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import { useParams } from 'react-router'
-import getData from '../utils/useGetData'
 import { Grid, Typography, Button } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useHistory } from "react-router"
+import axios from 'axios'
 
 export default function BlogDetails() {
     const {id} = useParams()
 
-    let blog = []
-    blog = getData(`http://localhost:8000/blogs/${id}`)
+    const [blog, setBlog] = useState({})
+    console.log(blog)
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/blogs/${id}`)
+            .then(response=> setBlog(response.data))
+            .catch(err=> console.log(err))
+    },[id])
+        
+    console.log(blog)
 
     const history = useHistory()
 
-    const handleDelete = () => {
-        fetch(`http://localhost:8000/blogs/${id}`, {
-            method: 'DELETE'
-        })
+    const handleDelete = async () => {
+        await axios.delete(`http://localhost:8000/blogs/${id}`) 
         .then(history.push('/')) 
     }
 
@@ -29,7 +35,7 @@ export default function BlogDetails() {
             </Grid>
             <Grid item xs={12}>
                 <Typography variant="h5">
-                    {blog.date}
+                    {blog.dateCreated}
                 </Typography>
             </Grid>
             <Grid item>

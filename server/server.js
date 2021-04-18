@@ -16,9 +16,9 @@ app.use(cors())
 //conncecting to mongoDB
 const dbURI = 'mongodb+srv://test:test1234@cluster0.hrcrj.mongodb.net/react-express-blog'
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => app.listen(5000, console.log('running mongodb')))
+    .then(() => app.listen(8000, console.log('running mongodb')))
     .catch (err => console.log(err))
 
 //routes
 const blogs = require('./routes/api/blogs')
-app.use('/api/blogs', blogs)
+app.use('/blogs', blogs)

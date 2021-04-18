@@ -2,6 +2,7 @@ import { Button, Grid, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
 import date from 'date-and-time'
 import { useHistory } from 'react-router'
+import axios from 'axios'
 
 export default function CreateBlog() {
 
@@ -43,17 +44,15 @@ export default function CreateBlog() {
 
         if (title && snippet && body) {
             const now = new Date()
-            
-            fetch('http://localhost:8000/blogs',{
-                method: 'POST',
-                headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({
-                    date: date.format(now,'MMMM DD YYYY'),
-                    title,
-                    snippet,
-                    body
-                })
-            }).then(history.push('/'))
+
+            axios.post('http://localhost:8000/blogs',{
+                title,
+                snippet,
+                body,
+                dateCreated: date.format(now, 'MMMM DD YYYY')
+            })
+                .then(history.push('/'))   
+                .catch(err=> console.log(err))
 
             clearFields()
         }

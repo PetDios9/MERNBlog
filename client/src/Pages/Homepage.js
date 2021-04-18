@@ -1,17 +1,26 @@
 import { Grid, } from '@material-ui/core'
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import BlogCard from '../components/BlogCard'
-import getData from '../utils/useGetData'
 
 export default function Homepage() {
+    const [blogs, setBlogs] = useState([])
 
-    let blogs = []
-    blogs = getData('http://localhost:8000/blogs/')
-   
+    const newMethod = async () => {
+        await axios.get('http://localhost:8000/blogs/')
+            .then(response => setBlogs(response.data))
+            .catch(err => console.log(err))
+    }
+    useEffect(() => {
+        newMethod()
+        return () => {
+            setBlogs([])
+        }
+    }, [])
     
     const renderedBlogs = blogs.map(blog => 
-        <Grid item xs={3} key={blog.id}>
-            <BlogCard id={blog.id} snippet={blog.snippet} title={blog.title} date={blog.date}/>
+        <Grid item xs={3} key={blog._id}>
+            <BlogCard id={blog._id} snippet={blog.snippet} title={blog.title} date={blog.dateCreated}/>
         </Grid>
     )
     return (

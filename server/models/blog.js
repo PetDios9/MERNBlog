@@ -14,8 +14,8 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
+    dateCreated: {
+        type: String,
         required: true
     }
     
