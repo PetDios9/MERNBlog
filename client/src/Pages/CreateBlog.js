@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from '@material-ui/core'
+import { Button, Grid, TextField, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import date from 'date-and-time'
 import { useHistory } from 'react-router'
@@ -12,7 +12,7 @@ export default function CreateBlog() {
     const [titleErr, setTitleErr] = useState(false)
     const [snippetErr, setSnippetErr] = useState(false)
     const [bodyErr, setBodyErr] = useState(false)
-    const history= useHistory()
+    const history = useHistory()
 
     const validate = () => {
         setTitleErr(false)
@@ -38,7 +38,7 @@ export default function CreateBlog() {
         setBody('')
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit =  (event) => {
         event.preventDefault()
         validate()
 
@@ -62,6 +62,11 @@ export default function CreateBlog() {
         <div>
             <form autoComplete="off" noValidate onSubmit={handleSubmit}>
                 <Grid container direction="column" spacing={3}>
+                    <Grid item xs={12}>
+                        <Typography variant="h2">
+                            Create a Blog!
+                        </Typography>
+                    </Grid>
                     <Grid item xs={12}>
                         <TextField 
                             required
