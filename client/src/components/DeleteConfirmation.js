@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core'
+import {Button, Dialog, DialogActions, DialogTitle} from '@material-ui/core'
 
 export default function DeleteConfirmation (props) {
     return(
@@ -7,7 +7,7 @@ export default function DeleteConfirmation (props) {
             open={props.open}
             onClose={props.onClose}
             >
-            <DialogTitle id="delete-dialog-title">Are you sure you would like to delete this?</DialogTitle>
+            <DialogTitle id="delete-dialog-title">Are you sure you would like to delete this blog?</DialogTitle>
             <DialogActions>
                 <Button onClick={props.onClose}>
                     Cancel

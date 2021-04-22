@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => {
     return{
         bodyText: {
             //preserve line breaks in body text
-            whiteSpace: 'pre-line'
-        }
+            whiteSpace: 'pre-line',
+        },
     }
 })
 
@@ -38,11 +38,12 @@ export default function BlogDetails() {
 
     const handleDelete = async () => {
         await axios.delete(`http://localhost:8000/blogs/${id}`) 
-            .then(history.push('/')) 
+            .then(()=> {history.push('/')}) 
+            .catch(err => console.log(err))
     }
 
     return (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} direction='row-reverse'>
             <Grid item xs={12}>
                 <Typography variant='h3'>
                     {blog.title}
@@ -58,7 +59,7 @@ export default function BlogDetails() {
                     {blog.body}
                 </Typography>
             </Grid>
-            <Grid container direction="row-reverse">
+            {/* <Grid container spacing={3} direction="row-reverse"> */}
                 <Grid item>
                     <Button 
                         startIcon={<DeleteIcon />} 
@@ -70,7 +71,7 @@ export default function BlogDetails() {
                     </Button>
                     <DeleteConfirmation open={dialogOpen} onClose={closeDialog} handleDelete={handleDelete}/>
                 </Grid>
-            </Grid>
+            {/* </Grid> */}
         </Grid>
     )
 }
