@@ -1,15 +1,27 @@
 import React, { useEffect,useState } from 'react'
 import { useParams } from 'react-router'
-import { Grid, Typography, Button } from '@material-ui/core'
+import { Grid, Typography, Button, makeStyles } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useHistory } from "react-router"
 import axios from 'axios'
 import DeleteConfirmation from '../components/DeleteConfirmation'
 
+const useStyles = makeStyles(theme => {
+    return{
+        bodyText: {
+            //preserve line breaks in body text
+            whiteSpace: 'pre-line'
+        }
+    }
+})
+
 export default function BlogDetails() {
+    const classes = useStyles()
+
     const {id} = useParams()
 
     const [blog, setBlog] = useState({})
+    console.log(blog)
     const [dialogOpen, setDialogOpen] = useState(false)
 
     const openDialog = () => setDialogOpen(true)
@@ -41,8 +53,8 @@ export default function BlogDetails() {
                     {blog.dateCreated}
                 </Typography>
             </Grid>
-            <Grid item>
-                <Typography variant='body1'>
+            <Grid item xs={12}>
+                <Typography variant='body1' className={classes.bodyText}>
                     {blog.body}
                 </Typography>
             </Grid>

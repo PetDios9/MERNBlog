@@ -1,10 +1,19 @@
-import { Button, Grid, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, TextField, Typography, makeStyles } from '@material-ui/core'
 import React, { useState } from 'react'
 import date from 'date-and-time'
 import { useHistory } from 'react-router'
 import axios from 'axios'
 
+const useStyles = makeStyles(theme => {
+    return{
+        bodyTextField: {
+            whiteSpace: 'pre-wrap'
+        }
+    }
+})
+
 export default function CreateBlog() {
+    const classes = useStyles()
 
     const [title, setTitle] = useState('')
     const [snippet, setSnippet] = useState('')
@@ -13,6 +22,7 @@ export default function CreateBlog() {
     const [snippetErr, setSnippetErr] = useState(false)
     const [bodyErr, setBodyErr] = useState(false)
     const history = useHistory()
+    console.log(body)
 
     const validate = () => {
         setTitleErr(false)
@@ -96,6 +106,7 @@ export default function CreateBlog() {
                     <Grid item xs={12}>
                         <TextField 
                             required
+                            //className={classes.bodyTextField}
                             error={bodyErr}
                             variant="outlined" 
                             label="Body" 
