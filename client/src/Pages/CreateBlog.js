@@ -1,10 +1,19 @@
-import { Button, Grid, TextField, Typography, } from '@material-ui/core'
+import { Button, CircularProgress, Grid, makeStyles, TextField, Typography, } from '@material-ui/core'
 import React, { useState } from 'react'
 import date from 'date-and-time'
 import { useHistory } from 'react-router'
 import axios from 'axios'
 
+const useStyles = makeStyles(theme => {
+    return{
+        loadingIndicator: {
+            position: 'absolute',
+        },
+    }
+})
+
 export default function CreateBlog() {
+    const classes = useStyles()
 
     const [title, setTitle] = useState('')
     const [snippet, setSnippet] = useState('')
@@ -12,8 +21,8 @@ export default function CreateBlog() {
     const [titleErr, setTitleErr] = useState(false)
     const [snippetErr, setSnippetErr] = useState(false)
     const [bodyErr, setBodyErr] = useState(false)
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
-    console.log(body)
 
     const validate = () => {
         setTitleErr(false)
@@ -39,22 +48,28 @@ export default function CreateBlog() {
         setBody('')
     }
 
-    const handleSubmit =  (event) => {
+    const postBlog = async () => {
+        setLoading(true)
+        const now = new Date()
+
+        await axios.post('http://localhost:8000/blogs',{
+            title,
+            snippet,
+            body,
+            dateCreated: date.format(now, 'MMMM DD YYYY')
+        })
+            .then(() => {history.push('/')})   
+            .catch(err=> console.log(err))
+
+        setLoading(false)
+    }
+
+    const handleSubmit =  async (event) => {
         event.preventDefault()
         validate()
 
         if (title && snippet && body) {
-            const now = new Date()
-
-            axios.post('http://localhost:8000/blogs',{
-                title,
-                snippet,
-                body,
-                dateCreated: date.format(now, 'MMMM DD YYYY')
-            })
-                .then(() => {history.push('/')})   
-                .catch(err=> console.log(err))
-
+            postBlog()
             clearFields()
         }
     }
@@ -64,7 +79,7 @@ export default function CreateBlog() {
             <form autoComplete="off" noValidate onSubmit={handleSubmit}>
                 <Grid container direction="column" spacing={3}>
                     <Grid item xs={12}>
-                        <Typography variant="h2">
+                        <Typography variant="h4">
                             Create a Blog!
                         </Typography>
                     </Grid>
@@ -111,13 +126,15 @@ export default function CreateBlog() {
                     </Grid>
                     <Grid item >
                         <Grid container direction="row-reverse">
-                            <Grid item>
+                            <Grid item >
                                 <Button 
-                                    color="primary" 
+                                    color="secondary" 
                                     variant="contained" 
                                     type="submit"
+                                    disabled={loading}
                                 >
                                     Post
+                                    {loading && <CircularProgress color="secondary" className={classes.loadingIndicator} size={20}/>}
                                 </Button>
                             </Grid>
                         </Grid>

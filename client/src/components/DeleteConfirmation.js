@@ -1,7 +1,16 @@
 import React from 'react'
-import {Button, Dialog, DialogActions, DialogTitle} from '@material-ui/core'
+import {Button, CircularProgress, Dialog, DialogActions, DialogTitle, makeStyles} from '@material-ui/core'
+
+const useStyles = makeStyles(theme => {
+    return{
+        loadingIndicator: {
+            position: 'absolute',
+        },
+    }
+})
 
 export default function DeleteConfirmation (props) {
+    const classes = useStyles()
     return(
         <Dialog
             open={props.open}
@@ -12,8 +21,9 @@ export default function DeleteConfirmation (props) {
                 <Button onClick={props.onClose}>
                     Cancel
                 </Button>
-                <Button onClick={props.handleDelete}>
+                <Button onClick={props.handleDelete} disabled={props.deleteLoading} variant="contained" color="secondary">
                     Delete Post
+                    {props.deleteLoading && <CircularProgress size={22} color="secondary" className={classes.loadingIndicator}/>}
                 </Button>
             </DialogActions>
         </Dialog>
