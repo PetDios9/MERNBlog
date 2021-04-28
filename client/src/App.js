@@ -7,6 +7,7 @@ import BlogDetails from './Pages/BlogDetails';
 import CreateBlog from './Pages/CreateBlog';
 import Homepage from './Pages/Homepage';
 import LoginPage from './Pages/LoginPage';
+import RegisterPage from './Pages/RegisterPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
             </Route>
           </Switch> 
         </div>
