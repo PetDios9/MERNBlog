@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+require('dotenv').config()
 
 const app = express()
 
@@ -14,7 +15,7 @@ app.use(cors())
 app.use(cors())
 
 //conncecting to mongoDB
-const dbURI = 'mongodb+srv://test:test1234@cluster0.hrcrj.mongodb.net/react-express-blog'
+const dbURI = process.env.ATLUS_URI
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => app.listen(8000, console.log('running mongodb')))
     .catch (err => console.log(err))
