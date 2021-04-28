@@ -24,13 +24,16 @@ export default function Header() {
             <AppBar color="primary" position='fixed'>
                 <Toolbar>
                     <Typography variant="h6" className={classes.welcome}>
-                        Welcome to Peter's Blog
+                        Peter's Blog
                     </Typography>
                     <Link to="/" className={classes.links}>
                         <HomeIcon />
                     </Link> 
                     <Link to="/create" className={classes.links}>
                         <PostAddIcon />
+                    </Link>
+                    <Link to='/login' className={classes.links}>
+                        Login/Register
                     </Link>
                 </Toolbar>
             </AppBar>

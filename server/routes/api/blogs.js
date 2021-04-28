@@ -37,6 +37,9 @@ router.get('/:id', (req,res) => {
         .then(blog => res.json(blog))
         .catch(() => res.status(404))
 })
+router.get('/login', (req,res) => {
+    
+})
 
 module.exports = router
 

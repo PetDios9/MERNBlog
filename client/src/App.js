@@ -6,6 +6,7 @@ import Header from './components/Header';
 import BlogDetails from './Pages/BlogDetails';
 import CreateBlog from './Pages/CreateBlog';
 import Homepage from './Pages/Homepage';
+import LoginPage from './Pages/LoginPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -47,6 +48,9 @@ function App() {
             </Route>
             <Route exact path="/">
               <Homepage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
             </Route>
           </Switch> 
         </div>
