@@ -1,10 +1,20 @@
-import { Typography, Grid, TextField, Button } from '@material-ui/core'
+import { Typography, Grid, TextField, Button, makeStyles } from '@material-ui/core'
 import {React, useState} from 'react'
 import {Link} from 'react-router-dom'
 
+const useStyles = makeStyles(theme => {
+    return {
+        link: {
+            textDecoration: 'none',
+        }
+    }
+})
+
 export default function LoginPage() {
     const [usernameField, setUsernameField] = useState('')
-    const [passwordFiled, setPasswordField] = useState('')
+    const [passwordField, setPasswordField] = useState('')
+
+    const classes= useStyles()
 
     return(
         <div>
@@ -22,10 +32,20 @@ export default function LoginPage() {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField label="Username" color="secondary" />
+                        <TextField 
+                            label="Username" 
+                            color="secondary" 
+                            value={usernameField} 
+                            onChange={event => setUsernameField(event.target.value)}
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField label="Password" color="secondary" />
+                        <TextField 
+                            label="Password" 
+                            color="secondary" 
+                            value={passwordField} 
+                            onChange={event => setPasswordField(event.target.value)}
+                        />
                     </Grid>
                     <Grid item xs={12}>
                         <Button color="secondary" variant="contained">
@@ -38,7 +58,7 @@ export default function LoginPage() {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Link to="/register">
+                        <Link to="/register" className={classes.link}>
                             <Button color="secondary" variant="contained">
                                 Register!
                             </Button>
