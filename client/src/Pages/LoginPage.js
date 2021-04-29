@@ -6,6 +6,9 @@ const useStyles = makeStyles(theme => {
     return {
         link: {
             textDecoration: 'none',
+        },
+        passwordField: {
+            password: true
         }
     }
 })
@@ -43,6 +46,7 @@ export default function LoginPage() {
                         <TextField 
                             label="Password" 
                             color="secondary" 
+                            type="password"
                             value={passwordField} 
                             onChange={event => setPasswordField(event.target.value)}
                         />
