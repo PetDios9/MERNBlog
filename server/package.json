@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PetDios9/react-express-blog.git"
+    "url": "git+https://github.com/PetDios9/MERNblog.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PetDios9/react-express-blog/issues"
+    "url": "https://github.com/PetDios9/MERNblog/issues"
   },
-  "homepage": "https://github.com/PetDios9/react-express-blog#readme"
+  "homepage": "https://github.com/PetDios9/MERNblog#readme"
 }
