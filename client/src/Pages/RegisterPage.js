@@ -1,51 +1,87 @@
 import { Button, Grid, TextField, Typography, makeStyles } from '@material-ui/core'
 import {React, useState} from 'react'
 import {Link} from 'react-router-dom'
+import {useFormik} from 'formik'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles(theme => {
     return {
         link: {
             textDecoration: 'none',
         },
-        passwordDoesntMatchText: {
+        errorText: {
             color: 'red'
         }
     }
 })
 
 export default function RegisterPage(){
-
-    const [usernameField, setUsernameField] = useState('')
-    const [emailField, setEmailField] = useState('')
-    const [passwordField, setPasswordField] = useState('')
-    const [confirmPasswordField, setConfirmPasswordField] = useState('')
+    const history = useHistory()
     const [usernameError, setUsernameError] = useState(false)
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [confirmPasswordError, setConfirmPasswordError] = useState(false)
+    const [errorMessages, setErrorMessages] = useState([])
 
     const classes = useStyles()
 
-    const validatePasswords = () => {
-
+    const validate = values => {
+        const errors = {}
+        setUsernameError(false)
+        setEmailError(false)
         setPasswordError(false)
         setConfirmPasswordError(false)
-
-        if (passwordField !== confirmPasswordField) {
+        if (!values.username) {
+            errors.username= 'Required'
+            setUsernameError(true)
+        }
+        if (!values.email) {
+            errors.email = 'Required'
+            setEmailError(true)
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            errors.email = 'Please Enter A Valid Email'
+            setEmailError(true)
+        }
+        if (!values.password) {
+            errors.password = 'Required'
             setPasswordError(true)
+        } else if (values.password.length < 6) {
+            errors.password = 'Please Enter A Password Longer Than 6 Characters'
+            setPasswordError(true)
+        }
+        if (!values.confirmPassword) {
+            errors.confirmPassword = "Required"
+            setConfirmPasswordError(true)
+        } else if (values.confirmPassword !== values.password) {
+            errors.confirmPassword = 'Passwords do not match!'
             setConfirmPasswordError(true)
         }
-        
+        return errors
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        validatePasswords()
-    }
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            username: '',
+            password: '',
+            confirmPassword: ''
+        },
+        validate,
+        onSubmit : async values => {
+            const user = values
+            const response = await axios.post('http://localhost:8000/users/register', user)
+            if (response.data.error) {
+                setErrorMessages(response.data.error)
+            } else{
+                history.push('/login')
+            }
+        }
+    })
 
     return(
         <div>
-            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+            <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
                 <Grid 
                     container
                     spacing={3}
@@ -58,49 +94,55 @@ export default function RegisterPage(){
                             Sign-up Here to Start Posting!
                         </Typography>
                     </Grid>
-                    {passwordError ? <Grid item xs={12}>
-                        <Typography variant="body1" className={classes.passwordDoesntMatchText}>
-                            Passwords do not match! Please Re-Enter and try again!
-                        </Typography>
-                    </Grid>: null}
+
+                    {errorMessages ? <Typography className={classes.errorText} variant="subtitle1">{errorMessages}</Typography> : null}
+
                     <Grid item xs={12}>
                         <TextField 
                             color="secondary" 
                             label="Username" 
-                            value={usernameField}
+                            id="username"
+                            value={formik.values.username}
                             error={usernameError}
-                            onChange={event => setUsernameField(event.target.value)}
+                            onChange={formik.handleChange}
                         />
                     </Grid>
+                    <Typography className={classes.errorText} variant="subtitle2">{formik.errors.username}</Typography>
                     <Grid item xs={12}>
                         <TextField 
                             color="secondary" 
                             label="Email" 
-                            value={emailField}
+                            id="email"
+                            value={formik.values.email}
                             error={emailError}
-                            onChange={event => setEmailField(event.target.value)}
+                            onChange={formik.handleChange}
                         />
                     </Grid>
+                    <Typography className={classes.errorText} variant="subtitle2">{formik.errors.email}</Typography>
                     <Grid item xs={12}>
                         <TextField 
                             color="secondary" 
                             label="Password" 
                             type="password"
-                            value={passwordField}
+                            id="password"
+                            value={formik.values.password}
                             error={passwordError}
-                            onChange={event => setPasswordField(event.target.value)}
+                            onChange={formik.handleChange}
                         />
                     </Grid>
+                    <Typography className={classes.errorText} variant="subtitle2">{formik.errors.password}</Typography>
                     <Grid item xs={12}>
                         <TextField 
                             color="secondary" 
                             label="Confirm Password" 
                             type="password"
-                            value={confirmPasswordField}
+                            id="confirmPassword"
+                            value={formik.values.confirmPassword}
                             error={confirmPasswordError}
-                            onChange={event => setConfirmPasswordField(event.target.value)}
+                            onChange={formik.handleChange}
                         />
                     </Grid>
+                    <Typography className={classes.errorText} variant="subtitle2">{formik.errors.confirmPassword}</Typography>
                     <Grid item xs={12}>
                         <Button variant="contained" color="secondary" type="submit">
                             Register!

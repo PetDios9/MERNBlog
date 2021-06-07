@@ -53,7 +53,7 @@ export default function BlogDetails() {
         setDeleteLoading(true)
         await axios.delete(`http://localhost:8000/blogs/${id}`) 
             .then(()=> {history.push('/')}) 
-            .catch(err => console.log(err))
+            .catch(err => (err))
         setDeleteLoading(false)
     }
 

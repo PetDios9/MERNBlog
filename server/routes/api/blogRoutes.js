@@ -4,7 +4,7 @@ const router = express.Router()
 const Blog = require('../../models/Blog')
 
 router.use((req, res, next) => {
-    console.log('new request made:');
+    console.log('new request made to blogs:');
     console.log('host: ', req.hostname);
     console.log('path: ', req.path);
     console.log('method: ', req.method);
@@ -36,9 +36,6 @@ router.get('/:id', (req,res) => {
     Blog.findById(req.params.id)
         .then(blog => res.json(blog))
         .catch(() => res.status(404))
-})
-router.get('/login', (req,res) => {
-    
 })
 
 module.exports = router
