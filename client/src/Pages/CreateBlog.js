@@ -57,8 +57,8 @@ export default function CreateBlog() {
             snippet,
             body,
             dateCreated: date.format(now, 'MMMM DD YYYY')
-        })
-            .then(() => {history.push('/')})   
+        }, {withCredentials: true})
+            .then(() => { history.push('/')})   
             .catch(err=> console.log(err))
 
         setLoading(false)

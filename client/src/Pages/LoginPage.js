@@ -1,9 +1,10 @@
 import { Typography, Grid, TextField, Button, makeStyles } from '@material-ui/core'
-import {React, useState} from 'react'
+import {React, useContext, useState,} from 'react'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
 import axios from 'axios'
 import { useHistory } from 'react-router'
+import UserContext from '../util/UserContext'
 
 const useStyles = makeStyles(theme => {
     return {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => {
 export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState('')
     const history = useHistory()
-
+    const {setUser} = useContext(UserContext)
     const classes= useStyles()
 
     const formik = useFormik({
@@ -27,12 +28,19 @@ export default function LoginPage() {
             email: '',
             password: ''
         },
-        //validate,
         onSubmit : async values => {
-            const user = values
-            axios.post('http://localhost:8000/users/login', user)
-                .then(response => history.push('/'))
-                .catch(err => setErrorMessage('Incorrect Username or Password'))
+            const loginInfo = values
+            try {
+                const response = await axios.post('http://localhost:8000/users/login', loginInfo, {withCredentials: true})
+                if (response.data.user) {
+                    const {user} = response.data
+                    setUser(user)
+                    history.push('/')
+                }
+            } catch (err) {
+                console.log(err)
+                setErrorMessage('Invalid Credentials')
+            }
         }
     })
 

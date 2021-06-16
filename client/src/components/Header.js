@@ -1,7 +1,11 @@
 import {Link} from 'react-router-dom'
-import {AppBar, makeStyles, Toolbar, Typography} from '@material-ui/core'
+import {AppBar, makeStyles, Toolbar, Typography, Button} from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/Home'
-import PostAddIcon from '@material-ui/icons/PostAdd';
+import PostAddIcon from '@material-ui/icons/PostAdd'
+import { useContext} from 'react'
+import UserContext from '../util/UserContext'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles(theme => {
     return {
@@ -17,14 +21,28 @@ const useStyles = makeStyles(theme => {
     }
 })
 
+
+
 export default function Header() {
     const classes = useStyles()
+    const history = useHistory()
+    const {user, setUser} = useContext(UserContext)
+    const logoutUser = async () => {
+        try {
+            await axios.get('http://localhost:8000/users/logout')
+        } catch(err) {
+            console.log(err)
+        }
+        setUser(null)
+        history.push('/')
+        //document.location.reload()
+    }
     return (
         <div className={classes.toolbar}>
             <AppBar color="primary" position='fixed' elevation={0}>
                 <Toolbar>
                     <Typography variant="h6" className={classes.welcome}>
-                        Peter's Blog
+                        {user !==null ? `${user.username}'s blog` : 'Welcome to MERN blog'}
                     </Typography>
                     <Link to="/" className={classes.links}>
                         <HomeIcon />
@@ -32,9 +50,12 @@ export default function Header() {
                     <Link to="/create" className={classes.links}>
                         <PostAddIcon />
                     </Link>
+                    {user ? 
+                    <Button onClick={() => logoutUser()}>Logout</Button>
+                    : 
                     <Link to='/login' className={classes.links}>
-                        Login/Register
-                    </Link>
+                        <Button>Login/Register</Button>
+                    </Link>}
                 </Toolbar>
             </AppBar>
         </div>
