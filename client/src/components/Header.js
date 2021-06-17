@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => {
         links: {
             textDecoration: 'none',
             color: '#FFFFFF', 
-            paddingLeft: "2%"
+            marginLeft: "2%"
         }
     }
 })
@@ -27,16 +27,18 @@ export default function Header() {
     const classes = useStyles()
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
+
     const logoutUser = async () => {
         try {
-            await axios.get('http://localhost:8000/users/logout')
+            await axios.get('http://localhost:8000/users/logout', {withCredentials: true})
         } catch(err) {
             console.log(err)
         }
         setUser(null)
         history.push('/')
-        //document.location.reload()
+        document.location.reload()
     }
+
     return (
         <div className={classes.toolbar}>
             <AppBar color="primary" position='fixed' elevation={0}>
@@ -51,7 +53,7 @@ export default function Header() {
                         <PostAddIcon />
                     </Link>
                     {user ? 
-                    <Button onClick={() => logoutUser()}>Logout</Button>
+                    <Button onClick={() => logoutUser()} className={classes.links}>Logout</Button>
                     : 
                     <Link to='/login' className={classes.links}>
                         <Button>Login/Register</Button>
