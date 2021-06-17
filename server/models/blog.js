@@ -17,6 +17,10 @@ const blogSchema = new Schema({
     dateCreated: {
         type: String,
         required: true
+    },
+    author: {
+        type: String,
+        required: true
     }
     
 }, {timestamps: true})

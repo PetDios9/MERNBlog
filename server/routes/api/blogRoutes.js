@@ -24,7 +24,8 @@ router.post('/',(req,res) => {
         title: req.body.title,
         snippet: req.body.snippet,
         body: req.body.body,
-        dateCreated: req.body.dateCreated
+        dateCreated: req.body.dateCreated,
+        author: req.body.author
     }) 
     newBlog.save().then(blog => res.json(blog))
 })

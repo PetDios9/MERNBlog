@@ -1,10 +1,11 @@
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { useParams } from 'react-router'
 import { Grid, Typography, Button, makeStyles, CircularProgress } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useHistory } from "react-router"
 import axios from 'axios'
 import DeleteConfirmation from '../components/DeleteConfirmation'
+import UserContext from '../util/UserContext'
 
 const useStyles = makeStyles(theme => {
     return{
@@ -22,7 +23,7 @@ export default function BlogDetails() {
     const classes = useStyles()
 
     const {id} = useParams()
-
+    const {user} = useContext(UserContext)
     const [blog, setBlog] = useState({})
     const [dialogOpen, setDialogOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -56,11 +57,11 @@ export default function BlogDetails() {
             .catch(err => (err))
         setDeleteLoading(false)
     }
-
     return (
         <div>
             {loading ? 
-                <Grid conatiner
+                <Grid 
+                    container
                     justify="center"
                     alignItems="center"
                 >
@@ -78,7 +79,12 @@ export default function BlogDetails() {
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="h5">
-                        {blog.dateCreated}
+                        {`Written on: ${blog.dateCreated}`}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h5">
+                        {`Written by: ${blog.author}`}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -86,6 +92,7 @@ export default function BlogDetails() {
                         {blog.body}
                     </Typography>
                 </Grid>
+                {user && user.username === blog.author ?
                 <Grid item>
                     <Button 
                         startIcon={<DeleteIcon />} 
@@ -96,7 +103,7 @@ export default function BlogDetails() {
                             Delete Post
                     </Button>
                     <DeleteConfirmation deleteLoading={deleteLoading} open={dialogOpen} onClose={closeDialog} handleDelete={handleDelete}/>
-                </Grid>
+                </Grid> : null}
             </Grid>}
         </div>
     )

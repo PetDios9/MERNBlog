@@ -1,8 +1,9 @@
 import { Button, CircularProgress, Grid, makeStyles, TextField, Typography, } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import date from 'date-and-time'
 import { useHistory } from 'react-router'
 import axios from 'axios'
+import UserContext from '../util/UserContext'
 
 const useStyles = makeStyles(theme => {
     return{
@@ -23,6 +24,7 @@ export default function CreateBlog() {
     const [bodyErr, setBodyErr] = useState(false)
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const {user} = useContext(UserContext)
 
     const validate = () => {
         setTitleErr(false)
@@ -56,7 +58,8 @@ export default function CreateBlog() {
             title,
             snippet,
             body,
-            dateCreated: date.format(now, 'MMMM DD YYYY')
+            dateCreated: date.format(now, 'MMMM DD YYYY'),
+            author: user.username
         }, {withCredentials: true})
             .then(() => { history.push('/')})   
             .catch(err=> console.log(err))

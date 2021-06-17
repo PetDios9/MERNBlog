@@ -37,7 +37,7 @@ export default function Homepage() {
 
     const renderedBlogs = blogs.map(blog => 
         <Grid item xs={12} md={3}  key={blog._id}>
-            <BlogCard id={blog._id} snippet={blog.snippet} title={blog.title} date={blog.dateCreated}/>
+            <BlogCard id={blog._id} snippet={blog.snippet} title={blog.title} date={blog.dateCreated} author={blog.author}/>
         </Grid>
     )
 

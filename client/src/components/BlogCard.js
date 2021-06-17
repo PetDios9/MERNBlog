@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function BlogCard({title, snippet, id, date}) {
+export default function BlogCard({title, snippet, id, date, author}) {
     const classes = useStyles()
     return(
         <div>
@@ -23,7 +23,7 @@ export default function BlogCard({title, snippet, id, date}) {
                 <Card variant="outlined" className={classes.card}>
                     <CardHeader 
                         title={title}
-                        subheader={date}
+                        subheader={`By ${author} on ${date}`}
                     />
                     <CardContent>
                         <Typography variant="body2">
