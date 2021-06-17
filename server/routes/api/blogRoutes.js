@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const Blog = require('../../models/Blog')
 
@@ -18,7 +19,7 @@ router.get('/', (req,res) => {
         .then(blogs => res.json(blogs))
         .catch(error => console.log(error))
 })
-router.post('/', (req,res) => {
+router.post('/',(req,res) => {
     const newBlog = new Blog({
         title: req.body.title,
         snippet: req.body.snippet,
