@@ -20,14 +20,15 @@ app.use(passport.session())
 require('./config/PassportConfig')(passport)
 //cors        
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://hopeful-goldberg-6fb3d1.netlify.app',
+    request: 'GET, POST, DELETE',
     credentials: true
   }));
 
 //conncecting to mongoDB
 const dbURI = process.env.ATLUS_URI
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => app.listen(8000, console.log('connected to mongodb')))
+    .then(() => app.listen(process.env.PORT || 5000 , console.log('connected to mongodb')))
     .catch (err => console.log(err))
 
 //routes

@@ -1,6 +1,9 @@
 {
   "name": "react-express-blog",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.18.4"
+  },
   "description": "In this project, I will be creating a blog site that uses React for the front end and Express connected to MongoDB for the backend. I will be utilizing the Mongoose library in order to better retrieve information from MongoDb.",
   "main": "server.js",
   "dependencies": {
@@ -19,8 +22,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "client": "npm start --prefix client"
   },
   "repository": {
     "type": "git",

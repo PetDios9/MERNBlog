@@ -38,9 +38,11 @@ router.use((req, res, next) => {
     ]
   })
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     RegisterUserService(req.body)
-        .then(result => res.send(result.username))
+        .then(result => {
+          res.send(result)
+        })
         .catch(err => res.send(err))
 })
 

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const Blog = require('../../models/Blog')
+const Blog = require('../../models/blog')
 
 router.use((req, res, next) => {
     console.log('new request made to blogs:');

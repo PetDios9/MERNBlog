@@ -31,7 +31,7 @@ export default function LoginPage() {
         onSubmit : async values => {
             const loginInfo = values
             try {
-                const response = await axios.post('http://localhost:8000/users/login', loginInfo, {withCredentials: true})
+                const response = await axios.post('https://rocky-chamber-55659.herokuapp.com/users/login', loginInfo, {withCredentials: true})
                 if (response.data.user) {
                     const {user} = response.data
                     setUser(user)
@@ -56,7 +56,7 @@ export default function LoginPage() {
                 >
                     <Grid item xs={12}>
                         <Typography variant="h4">
-                            Login!
+                            Login to Start Posting!
                         </Typography>
                     </Grid>
                     {errorMessage ? <Typography className={classes.errorText} variant="subtitle1">{errorMessage}</Typography>: null}
