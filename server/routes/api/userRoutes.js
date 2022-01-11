@@ -3,15 +3,6 @@ const RegisterUserService = require('../../services/RegisterUserService')
 const router = express.Router()
 const passport = require('passport')
 
-router.use((req, res, next) => {
-    console.log('new request made to users:');
-    console.log('host: ', req.hostname);
-    console.log('path: ', req.path);
-    console.log('method: ', req.method);
-    console.log('status: ', res.statusCode)
-    next();
-  })
-
   //for checking if user is logged in
   router.get('/', (req,res, next) => {
     if (req.isAuthenticated()) {

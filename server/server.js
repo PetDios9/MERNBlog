@@ -28,7 +28,7 @@ app.use(cors({
 //conncecting to mongoDB
 const dbURI = process.env.ATLUS_URI
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => app.listen(process.env.PORT || 5000 , console.log('connected to mongodb')))
+    .then(() => app.listen(process.env.PORT || 5000 ))
     .catch (err => console.log(err))
 
 //routes

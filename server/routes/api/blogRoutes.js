@@ -4,15 +4,6 @@ const passport = require('passport')
 
 const Blog = require('../../models/blog')
 
-router.use((req, res, next) => {
-    console.log('new request made to blogs:');
-    console.log('host: ', req.hostname);
-    console.log('path: ', req.path);
-    console.log('method: ', req.method);
-    console.log('status: ', res.statusCode)
-    next();
-  })
-
 router.get('/', (req,res) => {
     Blog.find()
         .sort({date: -1})

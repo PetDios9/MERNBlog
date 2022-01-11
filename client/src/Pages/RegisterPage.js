@@ -74,7 +74,6 @@ export default function RegisterPage(){
                 username: values.username,
                 password: values.password
             }
-            console.log(user)
             try {
                 const response = await axios.post('https://rocky-chamber-55659.herokuapp.com/users/register', user)
                 if (response.data.error) {
